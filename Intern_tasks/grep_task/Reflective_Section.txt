@@ -1,0 +1,24 @@
+🧠 ## Breaking down how the script handles arguments and options:
+
+The Script run on three phases:
+
+- Option Parsing: The script uses (getopts) "nv" to handle the options for line numbers (-n) and invert match (-v). These options are used to modify how matching lines are displayed.
+
+- Argument Validation: After the options are processed, the script checks that both the search string and the filename are provided. If either is missing, it prints an error message. This ensures the script doesn’t run with incomplete or incorrect input
+
+- File Processing: Once the arguments are validated, the script reads the file line by line, performs a "case-insensitive search", and prints the matching lines based on the options provided. If no matches are found, it informs the user.
+============================================================================
+🛠 ## How the structure would change to support regex or -i/-c/-l options: 
+
+To support regex and additional options we can do as follows:
+
+- Instead of using the simple string matching ([[ ... == *pattern* ]]), we can replace it with the actual grep tool that supports regex natively.
+
+- regarding to the "-i/-c/-l" options we will add new cases to the (getopts) parsing and changing how the output is handled.
+============================================================================
+❗ ## The hardest part of the script to implement and why:
+
+The hardest part is to implement the handling of argument validation and ensuring that the script properly reacts to user input, because:
+
+- Handling missing arguments: Initially, it was difficult to ensure that the script gives a clear error message when either the search string or filename is missing. Since the user could provide options like -n or -v, I had to carefully parse the remaining arguments after these options to avoid confusing the program’s logic.
+============================================================================
